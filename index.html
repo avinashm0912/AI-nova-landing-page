@@ -1,578 +1,1171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpidyWeb</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#EA2831", "background-light": "#f8f6f6", "background-dark": "#211111"}, fontFamily: {display: "Space Grotesk"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI-Nova: AI Applications, Cloud Solutions, and Data Analytics to ignite your business.">
-    <meta name="keywords" content="AI, Cloud Computing, Data Analytics, AI-Nova, Technology Solutions, Dark Theme, Teal Accent">
-    <meta name="author" content="AI-Nova">
-    <title>AI-Nova - AI, Cloud & Data Analytics for Industry</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <title>WebTailor.AI - Custom Website Solutions</title>
     <style>
-        /* =======================================
-           1. VIBRANT TEAL/BLUE DARK THEME CONFIGURATION (Matches Images)
-           ======================================= */
-        :root {
-            /* New High-Contrast Dark Colors */
-            --color-primary-dark: #070D18;      /* Very Dark Navy - Main Background */
-            --color-secondary-dark: #10192A;    /* Dark Card/Section Background */
-            --color-accent-teal: #00C9A7;       /* Primary Accent: Vibrant Teal/Emerald */
-            --color-accent-blue: #007FFF;       /* Secondary Accent: Digital Blue */
-            --color-light-text: #E0E7FF;        /* Light Text (Subtle Blue Tint) */
-            --color-glow-strength: 0 0 8px;     /* Subtle Shadow Strength for Pro Look */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* General Dark Mode/Theme Overrides */
-        body {
-            background-color: var(--color-primary-dark);
-            color: var(--color-light-text);
-            /* Removed 'Space Mono' to revert to standard sans-serif for professional look */
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-secondary: #001f3f;
+            --dark-card: #003A5D;
+            --spider-red: #e61626;
+            --spider-red-light: #ff3333;
+            --spider-red-dark: #c5111f;
+            --spider-blue: #003A5D;
+            --spider-blue-light: #005a8f;
+            --spider-blue-dark: #001f3f;
+            --text-primary: #ffffff;
+            --text-secondary: #b8d4e8;
+            --text-muted: #7fb3d3;
+            --web-color: rgba(255, 255, 255, 0.1);
         }
-        
-        /* Hero Section Gradient/Background */
-        .hero-neon-gradient {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #171E3A 100%);
-            min-height: 70vh;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(230, 22, 38, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 58, 93, 0.05) 0%, transparent 50%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Spider Web Background */
+        .web-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .web-line {
+            position: absolute;
+            background: linear-gradient(180deg, transparent, var(--web-color), transparent);
+            transform-origin: top center;
+            animation: webPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes webPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .web-circle {
+            position: absolute;
+            border: 1px solid var(--web-color);
+            border-radius: 50%;
+            animation: webExpand 4s ease-in-out infinite;
+        }
+
+        @keyframes webExpand {
+            0%, 100% { transform: scale(0.8); opacity: 0.1; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 31, 63, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(230, 22, 38, 0.3);
+            border-bottom: 2px solid var(--spider-red);
+            animation: navSlideDown 0.5s ease;
+        }
+
+        @keyframes navSlideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--spider-red);
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+            animation: logoGlow 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(230, 22, 38, 0.5);
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(230, 22, 38, 0.5),
+                             0 0 20px rgba(230, 22, 38, 0.3);
+            }
+            50% { 
+                text-shadow: 0 0 20px rgba(230, 22, 38, 0.8),
+                             0 0 30px rgba(230, 22, 38, 0.5),
+                             0 0 40px rgba(230, 22, 38, 0.3);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--spider-red);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--spider-red);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(230, 22, 38, 0.5);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--spider-blue-dark) 50%, var(--dark-bg) 100%);
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 50px 50px;
-            border-bottom: 2px solid var(--color-accent-teal);
-            box-shadow: 0 5px 20px rgba(0, 201, 167, 0.2); /* Soft ambient glow */
         }
 
-        /* Accent & Glow Utility Classes - RECOLORED */
-        .text-accent-teal { color: var(--color-accent-teal); }
-        .text-accent-blue { color: var(--color-accent-blue); }
-        .bg-accent-teal { background-color: var(--color-accent-teal); }
-        
-        /* Accent Text Shadow/Glow */
-        .teal-text-glow {
-            text-shadow: var(--color-glow-strength) var(--color-accent-teal),
-                         var(--color-glow-strength) var(--color-accent-teal);
-        }
-        .blue-glow {
-            text-shadow: var(--color-glow-strength) var(--color-accent-blue);
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(230, 22, 38, 0.15) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
         }
 
-        /* Card & Button Styles - RECOLORED */
-        .solution-card {
-            background-color: var(--color-secondary-dark);
-            border: 1px solid rgba(0, 201, 167, 0.2); /* Teal border subtle */
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 5px rgba(0, 201, 167, 0.1);
-        }
-        .solution-card:hover {
-            background-color: #171E3A;
-            transform: translateY(-5px);
-            border-color: var(--color-accent-teal);
-            box-shadow: 0 0 15px var(--color-accent-teal); /* Intense hover glow */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 58, 93, 0.15) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite reverse;
         }
 
-        /* Accent Button - RECOLORED */
-        .btn-accent {
-            box-shadow: 0 0 10px var(--color-accent-teal);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.3) rotate(5deg); opacity: 0.8; }
+        }
+
+        /* Animated Web Pattern in Hero */
+        .web-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, transparent 20%, var(--web-color) 21%, var(--web-color) 22%, transparent 23%),
+                radial-gradient(circle at 70% 60%, transparent 20%, var(--web-color) 21%, var(--web-color) 22%, transparent 23%);
+            background-size: 200px 200px;
+            animation: webMove 20s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes webMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(200px, 200px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--spider-red-light) 0%, var(--spider-red) 50%, var(--spider-blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease, titleShimmer 3s ease-in-out infinite;
+            position: relative;
+            text-shadow: 0 0 30px rgba(230, 22, 38, 0.3);
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% { 
+                filter: brightness(1);
+                transform: scale(1);
+            }
+            50% { 
+                filter: brightness(1.2);
+                transform: scale(1.02);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--spider-red) 0%, var(--spider-red-dark) 100%);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
             transition: all 0.3s ease;
-            font-weight: 700;
-        }
-        .btn-accent:hover {
-            box-shadow: 0 0 20px var(--color-accent-teal), 0 0 30px var(--color-accent-teal);
-            color: var(--color-primary-dark);
-            background-color: var(--color-accent-teal);
+            animation: fadeInUp 1s ease 0.4s both, buttonPulse 2s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(230, 22, 38, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Dark Theme Overrides */
-        .nav-bar-dark { background-color: var(--color-primary-dark); }
-        .bg-card-dark { background-color: var(--color-secondary-dark); }
-        
-        /* Mobile Nav Fixes */
-        .nav-links:not(.sm\:flex) {
-            display: none;
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
-        .nav-links.active { 
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { 
+                box-shadow: 0 4px 15px rgba(230, 22, 38, 0.4);
+            }
+            50% { 
+                box-shadow: 0 4px 25px rgba(230, 22, 38, 0.7),
+                            0 0 40px rgba(230, 22, 38, 0.3);
+            }
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, var(--spider-red-light) 0%, var(--spider-red) 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(230, 22, 38, 0.6);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--spider-red);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            animation: titleFloat 3s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(230, 22, 38, 0.3);
+            z-index: 2;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--spider-red), transparent);
+            animation: lineExpand 2s ease-in-out infinite;
+        }
+
+        @keyframes lineExpand {
+            0%, 100% { width: 100px; }
+            50% { width: 200px; }
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--spider-blue) 0%, var(--spider-blue-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(230, 22, 38, 0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scale(1);
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid var(--spider-red);
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(230, 22, 38, 0.1) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(230, 22, 38, 0.1) 50%, transparent 70%);
+            background-size: 20px 20px;
+            animation: webPattern 3s linear infinite;
+        }
+
+        @keyframes webPattern {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 20px 20px, -20px -20px; }
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--spider-red);
+            box-shadow: 0 15px 40px rgba(230, 22, 38, 0.4),
+                        0 0 60px rgba(230, 22, 38, 0.2);
+        }
+
+        .service-card:hover .service-icon {
+            animation: iconBounce 0.6s ease;
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(10deg); }
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--spider-red);
+            transition: all 0.4s ease;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(230, 22, 38, 0.5));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover h3 {
+            color: var(--spider-red-light);
+            text-shadow: 0 0 10px rgba(230, 22, 38, 0.5);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--spider-blue-dark) 0%, var(--spider-blue) 100%);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin: 3rem 2rem;
+            border: 2px solid var(--spider-red);
+            box-shadow: 0 10px 40px rgba(230, 22, 38, 0.3),
+                        inset 0 0 60px rgba(230, 22, 38, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: contactGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes contactGlow {
+            0%, 100% { 
+                box-shadow: 0 10px 40px rgba(230, 22, 38, 0.3),
+                            inset 0 0 60px rgba(230, 22, 38, 0.1);
+            }
+            50% { 
+                box-shadow: 0 10px 60px rgba(230, 22, 38, 0.5),
+                            inset 0 0 80px rgba(230, 22, 38, 0.2);
+            }
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(230, 22, 38, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
             display: block;
-            background-color: var(--color-secondary-dark);
-            border: 1px solid rgba(0, 201, 167, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 201, 167, 0.2);
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(0, 31, 63, 0.5);
+            border: 2px solid var(--spider-blue);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--spider-red);
+            box-shadow: 0 0 20px rgba(230, 22, 38, 0.3),
+                        inset 0 0 10px rgba(230, 22, 38, 0.1);
+            transform: scale(1.02);
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-color: var(--spider-red-light);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--spider-red) 0%, var(--spider-red-dark) 100%);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(230, 22, 38, 0.4);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--spider-red-light) 0%, var(--spider-red) 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(230, 22, 38, 0.6),
+                        0 0 40px rgba(230, 22, 38, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--spider-blue-dark) 0%, var(--dark-bg) 100%);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 2px solid var(--spider-red);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--spider-red), transparent);
+            animation: footerLine 3s ease-in-out infinite;
+        }
+
+        @keyframes footerLine {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Floating particles animation */
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--spider-red);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(230, 22, 38, 0.8);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--dark-secondary);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+</style>
+
 </head>
+<body>
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">
-    (function(){
-        emailjs.init({
-            publicKey: "yWF1YxIPaqR5U7IJq",
-        });
-    })();
-</script>
+    <!-- Animated Web Background -->
+    <div class="web-background">
+        <div class="web-pattern"></div>
+    </div>
 
-<body class="font-sans transition duration-500 ease-in-out">
-    
-    <nav class="nav-bar-dark p-4 sticky top-0 z-40 transition duration-500">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#home">
-                <img src="cropped-logo.png" alt="AI-Nova Logo" class="w-36 sm:w-48 md:w-60">
-            </a>
-            
-            <button class="hamburger text-2xl text-white sm:hidden" id="hamburger" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-links hidden space-x-6 text-white font-medium sm:flex sm:space-x-4 md:space-x-8 lg:text-lg" id="navMenu">
-                <li><a href="#home" class="p-2 block hover:text-accent-teal transition duration-300">Home</a></li>
-                
-                <li class="relative group">
-                    <a href="#services" class="p-2 block hover:text-accent-teal transition duration-300">Solutions <i class="fas fa-chevron-down text-xs ml-1"></i></a>
-                    <ul class="absolute hidden group-hover:block bg-card-dark text-white p-4 rounded-lg shadow-xl mt-0 w-48 transition duration-300 md:w-auto z-50 border border-accent-teal shadow-lg shadow-teal-900/50">
-                        <li><a href="#ai-solutions" class="p-2 block hover:text-accent-teal transition duration-300">AI Solutions</a></li>
-                        <li><a href="#cloud" class="p-2 block hover:text-accent-teal transition duration-300">Cloud</a></li>
-                        <li><a href="#analytics" class="p-2 block hover:text-accent-teal transition duration-300">Data Analytics</a></li>
-                        <li><a href="#hr" class="p-2 block hover:text-accent-teal transition duration-300">Resource</a></li>
-                    </ul>
-                </li>
-                
-                <li><a href="#about" class="p-2 block hover:text-accent-teal transition duration-300">Benefits</a></li>
-                <li><a href="#performance" class="p-2 block hover:text-accent-teal transition duration-300">Performance</a></li>
-                <li><a href="#contact" class="p-2 block hover:text-accent-teal transition duration-300">Contact</a></li>
-                <li>
-                    <button class="get-started-btn">Get Started</button>
-                    <style>
-                      .get-started-btn {
-                        background: linear-gradient(90deg, #00d29e, #90eff1);
-                        color: rgb(0, 0, 0);
-                        font-size: 19px;
-                        font-weight: 600;
-                        border: none;
-                        border-radius: 8px;
-                        padding: 10px 28px;
-                        cursor: pointer;
-                        transition: transform 0.2s ease, opacity 0.2s ease;
-                      }
-                      .get-started-btn:hover {
-                        transform: scale(1.05);
-                        opacity: 0.9;
-                      }
-                      .custom-teal-glow-3 {
-                        /* Tighter, More Defined Glow (Low Blur, High Opacity) */
-                        text-shadow: 0 0 4px rgb(0, 57, 50), 0 0 8px rgba(0, 255, 225, 0.8);
-                      }
-                    </style>
-                </li>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">WebTailor.AI</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
-    <section id="home" class="hero-neon-gradient flex items-center justify-center text-center text-white">
-        <div class="container mx-auto px-4 py-16">
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-4 leading-tight ">
-                Transform Your Industrial Operations with <span class=" teal-text-glow">Predictive AI</span>
-            </h1>
-            <p class="text-lg sm:text-xl lg:text-2xl mb-12 font-light max-w-4xl mx-auto text-gray-400">
-                Reduce downtime by **40%**, optimize processes in real-time, and elevate quality control with enterprise-grade AI solutions designed for industry leaders.
-            </p>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="web-pattern"></div>
+        <div class="hero-content">
+            <h1>WebTailor.AI</h1>
+            <p>Custom Website Solutions Tailored to Your Business</p>
+            <a href="#contact" class="cta-button"><span>Get Started</span></a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">We provide comprehensive web solutions to help your business thrive online</p>
+        
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon" red>🎨</div>
+                <h3>Website Creation</h3>
+                <p>We design and develop custom websites that perfectly represent your business. From simple static landing pages, portfolio websites to complex dynamic platforms, we create responsive, modern websites that engage your audience and drive results.</p>
+            </div>
+
+            <div class="service-card fade-in">
+                <div class="service-icon">🌐</div>
+                <h3>Website Hosting</h3>
+                <p>Reliable and secure hosting solutions for your website. We ensure maximum uptime, fast loading speeds, and robust security measures. Your website will be accessible 24/7 with our premium hosting services.</p>
+            </div>
+
+            <div class="service-card fade-in">
+                <div class="service-icon">☁️</div>
+                <h3>Cloud Hosting Support</h3>
+                <p>Scalable cloud hosting solutions that grow with your business. Our cloud hosting support includes server management, scalability solutions, and 24/7 technical support to keep your online presence running smoothly.</p>
+            </div>
+        </div>
+    </section>
+    <section class="py-8">
+        <h3 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em] px-4 pb-5 pt-5">
+                            How It Works
+                        </h3>
+        <div class="grid grid-cols-[auto_1fr] gap-x-4 px-4">
+        <div class="flex flex-col items-center gap-2 pt-2">
+        <div class="flex items-center justify-center rounded-full bg-primary/20 text-primary size-8">
+        <span class="material-symbols-outlined text-xl">looks_one</span>
+        </div>
+        <div class="w-[2px] bg-primary/30 h-full"></div>
+        </div>
+        <div class="flex flex-1 flex-col pt-2 pb-8">
+        <p class="text-white text-lg font-medium leading-normal">Choose Your Plan</p>
+        <p class="text-gray-400 text-sm">Select the perfect plan that fits your creative needs and budget</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+        <div class="w-[2px] bg-primary/30 h-full"></div>
+        <div class="flex items-center justify-center rounded-full bg-primary/20 text-primary size-8">
+        <span class="material-symbols-outlined text-xl">looks_two</span>
+        </div>
+        <div class="w-[2px] bg-primary/30 h-full"></div>
+        </div>
+        <div class="flex flex-1 flex-col pt-2 pb-8">
+        <p class="text-white text-lg font-medium leading-normal">We Build Site</p>
+        <p class="text-gray-400 text-sm">We bring life to your vision</p>
+        </div>
+        <div class="flex flex-col items-center gap-2 pb-2">
+        <div class="w-[2px] bg-primary/30 h-full"></div>
+        <div class="flex items-center justify-center rounded-full bg-primary/20 text-primary size-8">
+        <span class="material-symbols-outlined text-xl">looks_3</span>
+        </div>
+        </div>
+        <div class="flex flex-1 flex-col pt-2 pb-8">
+        <p class="text-white text-lg font-medium leading-normal">Go Live</p>
+        <p class="text-gray-400 text-sm">Launch your website to the world</p>
+        </div>
+        </div>
+        </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Ready to transform your online presence? Contact us today!</p>
+        
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
             
-            <div class="flex justify-center space-x-4 mb-16">
-                <a href="#ai-solutions" class="bg-transparent border-2 border-accent-teal text-accent-teal px-8 py-3 rounded-lg hover:bg-accent-teal hover:text-primary-dark transition duration-300 font-semibold btn-accent">
-                    Explore Solutions <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-                <a href="#contact" class="bg-accent-blue text-white px-8 py-3 rounded-lg hover:bg-blue-600 transition duration-300 font-semibold shadow-blue-900/50" style="box-shadow: 0 0 10px var(--color-accent-blue);">
-                    Schedule Demo
-                </a>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
-
-            <div class="flex flex-wrap justify-center text-center mt-12 space-y-6 md:space-y-0 md:space-x-12">
-                <div class="w-1/2 md:w-auto">
-                    <p class="text-4xl font-bold text-accent-teal ">40%</p>
-                    <p class="text-sm font-light text-gray-400">Downtime Reduction</p>
-                </div>
-                <div class="w-1/2 md:w-auto">
-                    <p class="text-4xl font-bold text-accent-blue ">99.8%</p>
-                    <p class="text-sm font-light text-gray-400">Accuracy Rate</p>
-                </div>
-                <div class="w-1/2 md:w-auto">
-                    <p class="text-4xl font-bold text-accent-teal ">35%</p>
-                    <p class="text-sm font-light text-gray-400">Cost Savings</p>
-                </div>
-                <div class="w-1/2 md:w-auto">
-                    <p class="text-4xl font-bold text-accent-blue ">24/7</p>
-                    <p class="text-sm font-light text-gray-400">Real-time Monitoring</p>
-                </div>
-            </div>
-        </div>
-    </section>    
-    
-    <div class="h-10 bg-primary-dark"></div> 
-
-    <section id="ai-solutions" class="py-20 bg-primary-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-white teal-text-glow">AI-Powered Solutions</h2>
-            <p class="text-center text-lg mb-16 text-gray-400 max-w-3xl mx-auto">
-                Comprehensive suite of intelligent solutions designed to transform your industrial operations.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-teal hover:shadow-[0_0_20px_#00C9A7]">
-                    <i class="fas fa-chart-area text-5xl text-accent-teal mb-6 teal-text-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Predictive Maintenance</h3>
-                    <p class="text-gray-400 mb-6">Anticipate equipment failures before they occur with ML-powered anomaly detection. Reduce unplanned downtime.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Real-time monitoring</li>
-                        <li>Failure prediction</li>
-                        <li>Maintenance scheduling</li>
-                    </ul>
-                </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
             
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-blue hover:shadow-[0_0_20px_#007FFF]">
-                    <i class="fas fa-cogs text-5xl text-accent-blue mb-6 blue-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Process Optimization</h3>
-                    <p class="text-gray-400 mb-6">Maximize operational efficiency with AI-driven insights. Optimize production parameters dynamically.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Parameter tuning</li>
-                        <li>Energy optimization</li>
-                        <li>Throughput maximization</li>
-                    </ul>
-                </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
             
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-teal hover:shadow-[0_0_20px_#00C9A7]">
-                    <i class="fas fa-check-circle text-5xl text-accent-teal mb-6 teal-text-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Quality Control Intelligence</h3>
-                    <p class="text-gray-400 mb-6">Achieve 99.8% defect detection accuracy with computer vision and deep learning. Automate inspection.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Visual inspection</li>
-                        <li>Defect classification</li>
-                        <li>Compliance reporting</li>
-                    </ul>
-                </div>
-
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-blue hover:shadow-[0_0_20px_#007FFF]">
-                    <i class="fas fa-chart-line text-5xl text-accent-blue mb-6 blue-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Performance Analytics</h3>
-                    <p class="text-gray-400 mb-6">Transform data into actionable insights with advanced analytics dashboards. Monitor KPIs in real-time.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Custom dashboards</li>
-                        <li>Predictive analytics</li>
-                        <li>Trend analysis</li>
-                    </ul>
-                </div>
-
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-teal hover:shadow-[0_0_20px_#00C9A7]">
-                    <i class="fas fa-shield-alt text-5xl text-accent-teal mb-6 teal-text-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Safety & Compliance</h3>
-                    <p class="text-gray-400 mb-6">Enhance workplace safety with AI-powered monitoring. Ensure regulatory compliance and reduce incident rates.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Risk assessment</li>
-                        <li>Compliance tracking</li>
-                        <li>Incident prevention</li>
-                    </ul>
-                </div>
-
-                <div class="solution-card p-8 rounded-xl shadow-lg border-t-4 border-accent-blue hover:shadow-[0_0_20px_#007FFF]">
-                    <i class="fas fa-bolt text-5xl text-accent-blue mb-6 blue-glow"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Real-time Intelligence</h3>
-                    <p class="text-gray-400 mb-6">Make instant decisions with edge AI processing. Deploy models directly on-premises for sub-second response times.</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 text-gray-400">
-                        <li>Edge computing</li>
-                        <li>Low latency</li>
-                        <li>Offline capability</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
     </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-teal-900/50">
 
-    <section id="performance" class="py-20 bg-card-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Performance That <span class="text-accent-teal teal-text-glow">Powers Industry</span></h2>
-            <p class="text-center text-lg mb-16 text-gray-400 max-w-3xl mx-auto">
-                Built on cutting-edge infrastructure to meet the demanding requirements of modern manufacturing.
-            </p>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20">
-                <div class="p-4 bg-card-dark rounded-xl border border-accent-teal border-opacity-30 shadow-md shadow-teal-900/50">
-                    <i class="fas fa-microchip text-4xl text-accent-teal mb-3 teal-text-glow"></i>
-                    <p class="text-3xl font-bold text-accent-teal teal-text-glow">&lt;10ms</p>
-                    <p class="text-gray-400 text-sm">Edge Processing</p>
-                </div>
-                <div class="p-4 bg-card-dark rounded-xl border border-accent-blue border-opacity-30 shadow-md shadow-blue-900/50">
-                    <i class="fas fa-server text-4xl text-accent-blue mb-3 blue-glow"></i>
-                    <p class="text-3xl font-bold text-accent-blue blue-glow">99.99%</p>
-                    <p class="text-gray-400 text-sm">Uptime SLA</p>
-                </div>
-                <div class="p-4 bg-card-dark rounded-xl border border-accent-teal border-opacity-30 shadow-md shadow-teal-900/50">
-                    <i class="fas fa-bullseye text-4xl text-accent-teal mb-3 teal-text-glow"></i>
-                    <p class="text-3xl font-bold text-accent-teal teal-text-glow">99.8%</p>
-                    <p class="text-gray-400 text-sm">Model Accuracy</p>
-                </div>
-                <div class="p-4 bg-card-dark rounded-xl border border-accent-blue border-opacity-30 shadow-md shadow-blue-900/50">
-                    <i class="fas fa-database text-4xl text-accent-blue mb-3 blue-glow"></i>
-                    <p class="text-3xl font-bold text-accent-blue blue-glow">1M+</p>
-                    <p class="text-gray-400 text-sm">Data Processing (per sec)</p>
-                </div>
-            </div>
-
-            <h3 class="text-3xl font-bold text-center mb-10 text-white">Technical Excellence</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="p-6 bg-card-dark rounded-xl border-l-4 border-accent-teal shadow-md shadow-teal-900/50">
-                    <h4 class="text-xl font-semibold mb-4 text-accent-teal">Infrastructure</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm">
-                        <li>Kubernetes-orchestrated microservices</li>
-                        <li>Multi-region deployment capabilities</li>
-                        <li>Automatic scaling and load balancing</li>
-                    </ul>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl border-l-4 border-accent-blue shadow-md shadow-blue-900/50">
-                    <h4 class="text-xl font-semibold mb-4 text-accent-blue">AI/ML Stack</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm">
-                        <li>TensorFlow & PyTorch frameworks</li>
-                        <li>ONNX runtime for edge deployment</li>
-                        <li>Continuous model retraining pipeline</li>
-                    </ul>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl border-l-4 border-accent-teal shadow-md shadow-teal-900/50">
-                    <h4 class="text-xl font-semibold mb-4 text-accent-teal">Security & Compliance</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm">
-                        <li>SOC 2 Type II certified</li>
-                        <li>ISO 27001 compliant</li>
-                        <li>End-to-end encryption (AES-256)</li>
-                    </ul>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl border-l-4 border-accent-blue shadow-md shadow-blue-900/50">
-                    <h4 class="text-xl font-semibold mb-4 text-accent-blue">Integration</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 text-sm">
-                        <li>RESTful & GraphQL APIs</li>
-                        <li>MQTT for IoT device connectivity</li>
-                        <li>OPC UA industrial protocol support</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-blue-900/50">
-    
-    <section id="about" class="py-20 bg-primary-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Measurable <span class="text-accent-blue blue-glow">Business Impact</span></h2>
-            <p class="text-center text-lg mb-16 text-gray-400 max-w-3xl mx-auto">
-                Real results from industry leaders who trust our AI solutions.
-            </p>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center mb-16">
-                <div class="p-6 bg-card-dark rounded-xl shadow-lg border border-accent-teal/20 hover:shadow-[0_0_15px_#00C9A7]">
-                    <i class="fas fa-chart-bar text-4xl text-accent-teal mb-4 teal-text-glow"></i>
-                    <p class="text-4xl font-bold text-accent-teal teal-text-glow">+35%</p>
-                    <h4 class="text-lg font-semibold my-2">Increased Efficiency</h4>
-                    <p class="text-gray-400 text-sm">Boost operational efficiency through intelligent automation and optimization.</p>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl shadow-lg border border-accent-blue/20 hover:shadow-[0_0_15px_#007FFF]">
-                    <i class="fas fa-dollar-sign text-4xl text-accent-blue mb-4 blue-glow"></i>
-                    <p class="text-4xl font-bold text-accent-blue blue-glow">-30%</p>
-                    <h4 class="text-lg font-semibold my-2">Cost Reduction</h4>
-                    <p class="text-gray-400 text-sm">Cut operational costs by preventing failures and optimizing resource allocation.</p>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl shadow-lg border border-accent-teal/20 hover:shadow-[0_0_15px_#00C9A7]">
-                    <i class="fas fa-clock text-4xl text-accent-teal mb-4 teal-text-glow"></i>
-                    <p class="text-4xl font-bold text-accent-teal teal-text-glow">-40%</p>
-                    <h4 class="text-lg font-semibold my-2">Reduced Downtime</h4>
-                    <p class="text-gray-400 text-sm">Minimize unplanned downtime with predictive maintenance and proactive monitoring.</p>
-                </div>
-                <div class="p-6 bg-card-dark rounded-xl shadow-lg border border-accent-blue/20 hover:shadow-[0_0_15px_#007FFF]">
-                    <i class="fas fa-medal text-4xl text-accent-blue mb-4 blue-glow"></i>
-                    <p class="text-4xl font-bold text-accent-blue blue-glow">99.8%</p>
-                    <h4 class="text-lg font-semibold my-2">Quality Improvement</h4>
-                    <p class="text-gray-400 text-sm">Achieve industry-leading quality standards with AI-powered inspection and control.</p>
-                </div>
-            </div>
-
-            <div class="max-w-4xl mx-auto p-10 bg-card-dark rounded-xl shadow-2xl border border-accent-teal shadow-teal-900/50">
-                <h3 class="text-2xl font-bold text-white mb-6">Ready to <span class="text-accent-teal teal-text-glow">Transform</span> Your Operations?</h3>
-                <p class="text-gray-400 mb-8">Join industry leaders who have already revolutionized their manufacturing with our AI solutions.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <div class="flex flex-wrap text-center mb-6">
-                            <div class="w-1/3">
-                                <p class="text-3xl font-bold text-accent-blue blue-glow">500+</p>
-                                <p class="text-sm text-gray-400">Implementations</p>
-                            </div>
-                            <div class="w-1/3">
-                                <p class="text-3xl font-bold text-accent-teal teal-text-glow">98%</p>
-                                <p class="text-sm text-gray-400">Client Satisfaction</p>
-                            </div>
-                            <div class="w-1/3">
-                                <p class="text-3xl font-bold text-accent-blue blue-glow">24/7</p>
-                                <p class="text-sm text-gray-400">Support</p>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-300">
-                        <li><i class="fas fa-check-circle text-accent-teal mr-2 teal-text-glow"></i> Enterprise-grade security & compliance</li>
-                        <li><i class="fas fa-check-circle text-accent-teal mr-2 teal-text-glow"></i> Seamless integration with existing systems</li>
-                        <li><i class="fas fa-check-circle text-accent-teal mr-2 teal-text-glow"></i> Dedicated success manager</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-teal-900/50">
-    
-    <section id="cloud" class="py-20 bg-card-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-accent-teal teal-text-glow">Cloud Solutions</h2>
-            <p class="text-center text-lg mb-12 max-w-3xl mx-auto text-gray-400">Seamless, scalable, and secure cloud infrastructure for your enterprise, built for high-performance industrial loads.</p>
-            <div class="flex justify-center">
-                <button class="bg-transparent border-2 border-accent-teal text-accent-teal font-semibold px-6 py-3 rounded hover:bg-accent-teal hover:text-primary-dark transition duration-300 btn-accent">
-                    Explore Cloud Strategy <i class="fas fa-cloud ml-2"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-blue-900/50">
-
-    <section id="analytics" class="py-20 bg-primary-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-accent-blue blue-glow">Data Analytics</h2>
-            <p class="text-center text-lg mb-12 max-w-3xl mx-auto text-gray-400">We transform your raw industrial data into powerful growth opportunities through advanced analytics, visualization, and predictive modeling.</p>
-            <div class="flex justify-center">
-                <button class="bg-transparent border-2 border-accent-blue text-accent-blue font-semibold px-6 py-3 rounded hover:bg-accent-blue hover:text-primary-dark transition duration-300 shadow-blue-900/50" style="box-shadow: 0 0 10px var(--color-accent-blue);">
-                    Try Live Visualizer <i class="fas fa-chart-pie ml-2"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-teal-900/50">
-
-    <section id="hr" class="py-20 bg-card-dark transition duration-500">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-accent-teal teal-text-glow">Resource Management</h2>
-            <p class="text-center text-lg mb-12 max-w-3xl mx-auto text-gray-400">Leverage our expert HR and resource solutions to secure top talent and ensure rapid, efficient workforce integration for your technical teams.</p>
-            <div class="flex justify-center">
-                <button class="bg-transparent border-2 border-accent-teal text-accent-teal font-semibold px-6 py-3 rounded hover:bg-accent-teal hover:text-primary-dark transition duration-300 btn-accent">
-                    Explore Talent Solutions <i class="fas fa-handshake ml-2"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-blue-900/50">
-    
-    <section id="contact" class="py-20 bg-primary-dark text-white transition duration-500">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Let's Discuss Your <span class="text-accent-blue blue-glow">Industrial Project</span></h2>
-            <p class="text-center mb-8 text-lg font-light text-gray-400">Get in touch with our experts to start your digital transformation journey.</p>
-            
-            <div class="bg-card-dark p-8 rounded-xl shadow-2xl border border-accent-teal/50 hover:shadow-[0_0_25px_rgba(0,201,167,0.4)] transition-shadow">
-                <h3 class="text-xl font-semibold mb-6">Send a Message</h3>
-                <form id="contact-form" class="space-y-6">
-                    <input type="text" name="name" placeholder="Name" class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-500 focus:ring-accent-teal focus:border-accent-teal border-gray-700 border" required>
-                    <input type="email" name="email" placeholder="Email" class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-500 focus:ring-accent-teal focus:border-accent-teal border-gray-700 border" required>
-                    <select name="service" class="w-full p-3 rounded bg-gray-800 text-white focus:ring-accent-teal focus:border-accent-teal border-gray-700 border" required>
-                        <option value="" disabled selected>Select Service Interest</option>
-                        <option class="text-gray-200">AI Applications (Industrial)</option>
-                        <option class="text-gray-200">Cloud Solutions</option>
-                        <option class="text-gray-200">Data Analytics</option>
-                        <option class="text-gray-200">Resource Management</option>
-                        <option class="text-gray-200">General Inquiry</option>
-                    </select>
-                    <textarea name="message" placeholder="Message" class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-500 h-32 resize-none focus:ring-accent-teal focus:border-accent-teal border-gray-700 border" required></textarea>
-                    <button type="submit" id="submit-btn" class="bg-accent-blue text-white font-semibold w-full px-6 py-3 rounded-lg hover:bg-blue-600 shadow-blue-900/50 disabled:opacity-50 disabled:cursor-not-allowed" style="box-shadow: 0 0 10px var(--color-accent-blue);" disabled>
-                        Submit Inquiry <i class="fas fa-paper-plane ml-2"></i>
-                    </button>
-                    <p id="form-status" class="text-center mt-4"></p>
-                </form>
-            </div>
-        </div>
-    </section>
-    
-    <hr class="border-t border-gray-900 shadow-sm shadow-teal-900/50">
-
-    <footer class="bg-primary-dark border-t border-accent-teal/20 text-white p-6 transition duration-500 shadow-inner shadow-teal-900/10">
-        <div class="container mx-auto text-center">
-            <p class="text-sm md:text-base mb-2">&copy; 2025 <span class="text-accent-teal">AI-Nova</span>. All rights reserved. </p>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 WebTailor.AI. All rights reserved.</p>
+            <p>Custom Website Solutions | Hosting | Cloud Support</p>
         </div>
     </footer>
 
     <script>
-        // 1. Hamburger Menu & Smooth Scroll
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        
-        // Toggle menu
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const isActive = navMenu.classList.contains('active');
-            // Changed icon color to teal
-            hamburger.innerHTML = isActive ? '<i class="fas fa-times text-accent-teal"></i>' : '<i class="fas fa-bars"></i>';
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
 
-        // Close mobile menu when a link is clicked
-        const navLinks = document.querySelectorAll('.nav-links a');
-        navLinks.forEach(link => {
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                // Only collapse if on mobile view
-                if (window.innerWidth < 640) {
-                    navMenu.classList.remove('active');
-                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-                }
+                navLinks.classList.remove('active');
             });
         });
 
-        // 2. Contact Form Validation and Submission (EmailJS)
-        const form = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const inputs = form.querySelectorAll('input, select, textarea');
-        const formStatus = document.getElementById('form-status');
-
-        function checkFormValidity() {
-            let allFieldsValid = true;
-            inputs.forEach(input => {
-                if (!input.value.trim() || !input.checkValidity()) {
-                    allFieldsValid = false;
-                }
-            });
-            submitBtn.disabled = !allFieldsValid;
-        }
-
-        inputs.forEach(input => {
-            input.addEventListener('input', checkFormValidity);
-        });
-
-        checkFormValidity();
-        
-        // EmailJS Submission Logic
-        window.onload = function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault(); 
-                submitBtn.disabled = true;
-                // Changed text color to teal
-                submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin ml-2 text-accent-teal"></i>';
-                formStatus.textContent = 'Sending message...';
-                formStatus.className = 'text-center mt-4 text-accent-teal teal-text-glow';
-                
-                // Assuming your EmailJS service and template IDs are correct:
-                emailjs.sendForm('service_5asy405', 'template_7kg8d39', this) 
-                    .then(() => {
-                        formStatus.textContent = 'Message sent successfully! We will be in touch soon.';
-                        formStatus.className = 'text-center mt-4 text-accent-teal teal-text-glow';
-                        this.reset(); 
-                        checkFormValidity();
-                    }, (error) => {
-                        formStatus.textContent = 'Failed to send message. Please try again.';
-                        // Changed error color to a standard red
-                        formStatus.className = 'text-center mt-4 text-red-500'; 
-                        console.log('EmailJS Error:', error);
-                    })
-                    .finally(() => {
-                        submitBtn.innerHTML = 'Submit Inquiry <i class="fas fa-paper-plane ml-2"></i>';
-                        submitBtn.disabled = !form.checkValidity();
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
+                }
             });
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(0, 31, 63, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(230, 22, 38, 0.5)';
+            } else {
+                nav.style.backgroundColor = 'rgba(0, 31, 63, 0.95)';
+                nav.style.boxShadow = '0 2px 10px rgba(230, 22, 38, 0.3)';
+            }
+        });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Here you would typically send the data to a server
+            // For now, we'll just show an alert
+            alert(`Thank you for contacting us, ${name}! We'll get back to you at ${email} soon.`);
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Add active class to nav links on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksArray = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksArray.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                
+                // Random size
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random color variation (red/blue)
+                const colors = ['rgba(230, 22, 38, 0.6)', 'rgba(0, 58, 93, 0.6)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
         }
+
+        // Create animated web lines
+        function createWebLines() {
+            const webBackground = document.querySelector('.web-background');
+            
+            for (let i = 0; i < 8; i++) {
+                const line = document.createElement('div');
+                line.className = 'web-line';
+                line.style.left = '50%';
+                line.style.top = '0';
+                line.style.width = '2px';
+                line.style.height = '100vh';
+                line.style.transformOrigin = 'top center';
+                line.style.transform = `rotate(${i * 45}deg)`;
+                line.style.animationDelay = i * 0.2 + 's';
+                webBackground.appendChild(line);
+            }
+
+            // Create web circles
+            for (let i = 1; i <= 5; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'web-circle';
+                circle.style.left = '50%';
+                circle.style.top = '50%';
+                circle.style.width = (i * 150) + 'px';
+                circle.style.height = (i * 150) + 'px';
+                circle.style.marginLeft = '-' + (i * 75) + 'px';
+                circle.style.marginTop = '-' + (i * 75) + 'px';
+                circle.style.animationDelay = i * 0.3 + 's';
+                webBackground.appendChild(circle);
+            }
+        }
+
+        // Initialize animations
+        createParticles();
+        createWebLines();
+
+        // Add stagger animation to service cards
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.animationDelay = (index * 0.2) + 's';
+        });
+
+        // Parallax effect on scroll
+        let heroContentOffset = { x: 0, y: 0 };
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Subtle parallax for web background
+            const webBackground = document.querySelector('.web-background');
+            if (webBackground && scrolled < window.innerHeight) {
+                webBackground.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+
+            // Parallax for particles
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((particle, index) => {
+                const speed = 0.05 + (index % 5) * 0.03;
+                const currentTransform = particle.style.transform.match(/translateY\(([^)]+)\)/);
+                const mouseX = heroContentOffset.x;
+                particle.style.transform = `translateY(${scrolled * speed}px) translateX(${mouseX * 0.1}px)`;
+            });
+        });
+
+        // Mouse move effect for hero (3D parallax effect)
+        document.addEventListener('mousemove', (e) => {
+            const heroContent = document.querySelector('.hero-content');
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            heroContentOffset = { x: x * 20, y: y * 20 };
+            
+            if (heroContent) {
+                heroContent.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+                heroContent.style.transition = 'transform 0.1s ease-out';
+            }
+
+            // Move web pattern slightly with mouse
+            const webPattern = document.querySelector('.web-pattern');
+            if (webPattern) {
+                webPattern.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+            }
+        });
     </script>
 </body>
 </html>
+
